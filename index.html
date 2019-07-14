@@ -16,7 +16,7 @@ font-family: 'Roboto Mono', monospace;
 	<textarea id="ta"></textarea>
 <script>
   var ta = document.getElementById("ta");
-  var socket = io.connect('http://omegaboard.herokuapp.com');
+  var socket = io.connect('https://omegaboard.herokuapp.com');
   socket.on('replace', function (txt, time) {
     console.log(txt);
     console.log(time);
