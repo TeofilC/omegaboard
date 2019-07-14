@@ -23,8 +23,14 @@ font-family: 'Roboto Mono', monospace;
     ta.value = txt;
     //ta.setRangeText(txt);
   });
+  socket.on('select', function(strt,nd){
+    ta.selectionStart = strt;
+    ta.selectionEnd = nd;
+  });
   ta.addEventListener("input", function(e){
     nv = '';
+    s = ta.selectionStart;
+    e = ta.selectionEnd;
     rep = {
  	'*': '∧',
 	'+': '∨',
@@ -40,7 +46,13 @@ font-family: 'Roboto Mono', monospace;
             nv += c;
     }
     ta.value = nv;
+    ta.selectionStart = s;
+    ta.selectionEnd = e;
     socket.emit('replace', ta.value, Date.now());
+});
+  ta.addEventListener("click", function(e){
+    console.log(ta.selectionStart);
+    socket.emit('select', ta.selectionStart, ta.selectionEnd);	
 });
 </script>
 </body>
