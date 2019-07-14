@@ -1,0 +1,46 @@
+<head>
+<script src="/socket.io/socket.io.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+<style type='text/css'>
+#ta{
+width:100%;
+height:100%;
+resize:none;
+font-size:16pt;
+font-family: 'Roboto Mono', monospace;
+}
+</style>
+</head>
+
+<body>
+	<textarea id="ta"></textarea>
+<script>
+  var ta = document.getElementById("ta");
+  var socket = io.connect('http://omegaboard.herokuapp.com');
+  socket.on('replace', function (txt, time) {
+    console.log(txt);
+    console.log(time);
+    ta.value = txt;
+    //ta.setRangeText(txt);
+  });
+  ta.addEventListener("input", function(e){
+    nv = '';
+    rep = {
+ 	'*': '∧',
+	'+': '∨',
+        '-': '¬',
+	'>': '→',
+        '=': '⇔',
+	'#': '∴',
+	'4': '∀',
+	'1': '∃'
+    }
+    for(let c of ta.value){
+	    c = rep[c] || c;
+            nv += c;
+    }
+    ta.value = nv;
+    socket.emit('replace', ta.value, Date.now());
+});
+</script>
+</body>
