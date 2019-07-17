@@ -20,7 +20,12 @@ font-family: 'Roboto Mono', monospace;
   socket.on('replace', function (txt, time) {
     console.log(txt);
     console.log(time);
+    if(time !== 0){
     ta.value = txt;
+    }
+    else{
+       socket.emit('replace', ta.value, Date.now());
+    }
     //ta.setRangeText(txt);
   });
   socket.on('select', function(strt,nd){
