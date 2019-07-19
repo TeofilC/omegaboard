@@ -18,12 +18,12 @@ font-family: 'Roboto Mono', monospace;
   var ta = document.getElementById("ta");
   var socket = io.connect('https://omegaboard.herokuapp.com');
   socket.on('replace', function (txt, time) {
-    console.log(txt);
-    console.log(time);
+    console.log('update');
     if(time !== 0){
     ta.value = txt;
     }
     else{
+       console.log('server reset');
        socket.emit('replace', ta.value, Date.now());
     }
     //ta.setRangeText(txt);

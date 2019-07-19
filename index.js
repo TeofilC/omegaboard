@@ -1,8 +1,7 @@
-var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
-const port = process.env.PORT || 3000;
-
+var app = require('express')()
+var http = require('http').createServer(app)
+var io = require('socket.io')(http)
+const port = process.env.PORT || 3000
 
 state = "";
 last_update = 0;
@@ -20,7 +19,7 @@ io.on('connection', function(socket) {
 	socket.emit('select', start, end);
 	socket.on('replace', function(txt,time) {
 		state = txt;
-    last_update = time;
+		last_update = time;
 		socket.broadcast.emit("replace", txt, time)
 
 	});
